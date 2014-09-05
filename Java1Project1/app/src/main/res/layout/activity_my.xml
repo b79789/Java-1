@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MyActivity">
+
+    <EditText
+        android:inputType="text"
+        android:hint="@string/editText_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myEditText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myButton"
+        android:text="@string/Add"
+        android:layout_below="@+id/myEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="137dp"
+        android:onClick="onButtonClick" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Show"
+        android:id="@+id/button"
+        android:layout_alignBottom="@+id/myButton"
+        android:layout_toRightOf="@+id/myButton"
+        android:layout_toEndOf="@+id/myButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/NumEntry"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/myEditText"
+        android:layout_alignLeft="@+id/myButton"
+        android:layout_alignStart="@+id/myButton"
+        android:layout_marginTop="54dp"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/entryText"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_alignRight="@+id/myEditText"
+        android:layout_alignEnd="@+id/myEditText"
+        android:onClick="onButtonClick" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Avg"
+        android:id="@+id/textView6"
+        android:layout_toStartOf="@+id/entryText"
+        android:layout_toLeftOf="@id/entryText"
+        android:layout_alignTop="@+id/avgLengthText"
+        android:layout_alignLeft="@+id/myButton"
+        android:layout_alignStart="@+id/myButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/avgLengthText"
+        android:layout_toEndOf="@+id/textView6"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/textView6"
+        android:layout_marginTop="23dp" />
+
+
+</RelativeLayout>
