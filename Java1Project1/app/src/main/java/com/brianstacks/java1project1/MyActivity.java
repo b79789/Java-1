@@ -11,13 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import static java.lang.Math.*;
 
 
 import java.util.ArrayList;
 
 
 public class MyActivity extends Activity {
-
+    // create array of strings
+public static final ArrayList<String> stringList = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,51 +28,45 @@ public class MyActivity extends Activity {
     }
 
     public void onButtonClick(View v) {
-        // grabs textview names it to textViewToChange finds by findViewById
-        final TextView textViewToChange = (TextView) findViewById(R.id.entryText);
-        final TextView textViewToChange2 = (TextView) findViewById(R.id.avgLengthText);
+
         // initiate button control with the self view v
-        Button myButton =(Button)v;
+        Button myButton = (Button) v;
 
-        // create array of strings
-        final ArrayList<String> stringList = new ArrayList<String>();
-        //give the editText a name
-        final EditText message;
         // tell the editText named message to find view
-        message = (EditText) findViewById(R.id.myEditText);
-        //takes input and saves as string
-        final String my_message = message.getText().toString();
-        // due something with string here
+        final EditText myEditText = (EditText) findViewById(R.id.myEditText);        //takes input and saves as string
+        final String my_message = myEditText.getText().toString();
 
+        if (my_message.matches("")) {
+            Toast.makeText(this, "You must enter some text", Toast.LENGTH_SHORT).show();
+            return;
+            } else {
+            //add string to array
+            stringList.add(my_message);
+            Toast.makeText(this, "Text saved!", Toast.LENGTH_SHORT).show();
+            myEditText.setText(null);
+            return;
+        }
+    }
+
+    public void onButtonClick2(View v) {
         new AlertDialog.Builder(this)
-                .setTitle("Added Entry")
-                .setMessage("Are you sure you want to Add this entry?")
+                .setTitle("How many in Arraylist?")
+                .setMessage(String.valueOf(stringList.size()))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with add
-                        //add string to array
-                        stringList.add(my_message);
-
-                        // set textviews value
-                        textViewToChange.setText(stringList.get(0));
-                        textViewToChange2.setText(String.valueOf(stringList.size()));
-                        //log values
-                        Log.v("My value::", String.valueOf(stringList.size()));
-                        message.setText(null);
-
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
+                        // continue with delete
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-
-
     }
 
+
+    public void mathFunction(View v) {
+        // do something for on Click of Show length
+            Toast.makeText(this, "Show length is running", Toast.LENGTH_SHORT).show();
+            return;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
