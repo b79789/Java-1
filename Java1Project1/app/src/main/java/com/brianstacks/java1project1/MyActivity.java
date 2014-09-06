@@ -16,6 +16,8 @@ import static java.lang.Math.*;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MyActivity extends Activity {
@@ -42,6 +44,7 @@ public static final ArrayList<String> stringList = new ArrayList<String>();
             } else {
             //add string to array
             stringList.add(my_message);
+            Log.v(stringList.toString(),"Here it is:");
             Toast.makeText(this, "Text saved!", Toast.LENGTH_SHORT).show();
             myEditText.setText(null);
             return;
@@ -64,8 +67,8 @@ public static final ArrayList<String> stringList = new ArrayList<String>();
 
     public void mathFunction(View v) {
         // do something for on Click of Show length
-            Toast.makeText(this, "Show length is running", Toast.LENGTH_SHORT).show();
-            return;
+
+       Log.v(stringList.toString(),"Here it is:");
     }
 
     @Override
