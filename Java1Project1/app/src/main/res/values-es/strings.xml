@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Java1Project1</string>
+    <string name="hello_world">¡Hola mundo!</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="editText_hint">Introduzca texto</string>
+    <string name="Enter">Ingrese</string>
+    <string name="Add">Añadir</string>
+    <string name="Show">Mostrar cuántos</string>
+    <string name="Avg">Duración media:</string>
+    <string name="NumEntry">Número de entradas:</string>
+    <string name="Show2">Mostrar Duración media</string>
+    <string name="ShowCollection">Mostrar Collection</string>
+    <string name="Remove">Retire Última</string>
+
+</resources>

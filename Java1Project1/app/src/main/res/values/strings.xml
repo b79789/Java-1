@@ -12,5 +12,6 @@
     <string name="NumEntry">Number of Entries:</string>
     <string name="Show2">Show Average Length</string>
     <string name="ShowCollection">Show Collection</string>
+    <string name="Remove">Remove Last</string>
 
 </resources>

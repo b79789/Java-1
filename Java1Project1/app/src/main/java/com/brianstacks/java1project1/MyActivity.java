@@ -1,3 +1,7 @@
+/*Brian Stacks
+ 9-9-2014
+ Java-1 Mr.Story
+*/
 package com.brianstacks.java1project1;
 
 import android.app.Activity;
@@ -5,10 +9,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,7 +31,20 @@ public static final List<String> newList = new ArrayList<String>(new HashSet<Str
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        final TextView txtView = (TextView) findViewById(R.id.myButton);
+        final TextView txtView2 = (TextView) findViewById(R.id.button);
+        final TextView txtView3 = (TextView) findViewById(R.id.ShowButton2);
+        final TextView txtView4 = (TextView) findViewById(R.id.button2);
+        txtView.setBackgroundResource(R.color.white);
+        txtView2.setBackgroundResource(R.color.white);
+        txtView3.setBackgroundResource(R.color.white);
+        txtView4.setBackgroundResource(R.color.white);
+
+
     }
+
+
+
 
 
     // function to get the user input with no duplicates or empty strings
@@ -104,7 +123,20 @@ public static final List<String> newList = new ArrayList<String>(new HashSet<Str
                 .setMessage(newList.toString())
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
+
+                    }
+                })
+                .setNegativeButton("Remove Last", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // what to do when cancel is hit
+                        if (newList.size() == 0) {
+                            //do something here
+                            reload();
+
+                        } else {
+                            newList.remove((newList.size() - 1));
+                        }
+
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -112,6 +144,9 @@ public static final List<String> newList = new ArrayList<String>(new HashSet<Str
 
 
     }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
