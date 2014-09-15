@@ -16,11 +16,12 @@ import android.widget.ImageView;
 public class MyActivity extends Activity {
     // Our image IDs
     final int[] mImages = new int[] {
-            R.drawable.alliepic, R.drawable.bbb, R.drawable.ccc,
-            R.drawable.ashliepic, R.drawable.ddd, R.drawable.fff,
-            R.drawable.meandnikki, R.drawable.ggg, R.drawable.abc,
-            R.drawable.dad, R.drawable.eee, R.drawable.ggg,
-            R.drawable.hhh};
+            R.drawable.acrobat, R.drawable.aftereffects, R.drawable.bridge,
+            R.drawable.chrome, R.drawable.dreamweaver, R.drawable.earth,
+            R.drawable.fireworks, R.drawable.flash, R.drawable.illustrator,
+            R.drawable.indesign, R.drawable.photoshop, R.drawable.reader,
+            R.drawable.steam
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
