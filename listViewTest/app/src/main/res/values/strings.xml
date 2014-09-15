@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">listViewTest</string>
+    <string name="action_settings">Settings</string>
+    <!-- Inside strings.xml -->
+    <string-array name="politicians">
+        <item>George Washington (1789-1797)</item>
+        <item>John Adams (1797-1801)</item>
+        <item>Bill Clinton (1993-2001)</item>
+        <item>George W. Bush (2001-2009)</item>
+        <item>Barack Hussein Obama (2009-Present)</item>
+    </string-array>
+
+</resources>
