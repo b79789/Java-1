@@ -2,10 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <GridView android:id="@+id/image_grid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:numColumns="2"
-        android:stretchMode="columnWidth" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="6dp"
+    android:weightSum="2">
+
+    <Spinner android:id="@+id/mySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_weight="1"
+        style="@style/spinner_style"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/spinText"
+        android:layout_below="@+id/mySpinner"
+        android:layout_alignParentLeft="true"/>
+    <!-- Right side spacer -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+
 </LinearLayout>
