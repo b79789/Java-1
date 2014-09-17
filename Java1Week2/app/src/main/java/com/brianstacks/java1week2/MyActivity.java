@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
@@ -21,6 +22,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashSet;
 
 
 public class MyActivity extends Activity {
@@ -52,11 +55,20 @@ public class MyActivity extends Activity {
 
             });
         } else {
+
+
             this.setContentView(R.layout.extra);
             // Grab our ListView by ID and assign it to a variable.
             final ListView lv = (ListView)findViewById(R.id.president_list);
             // Get our data collection from the resource file.
             String[] presidents = getResources().getStringArray(R.array.politicians);
+            // Create a new ArrayAdapter that takes in a context,
+            // list item layout, and data collection.
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, presidents);
+
+            // Hook everything up by setting the adapter to the ListView.
+            lv.setAdapter(adapter);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
@@ -68,13 +80,7 @@ public class MyActivity extends Activity {
 
             });
 
-            // Create a new ArrayAdapter that takes in a context,
-            // list item layout, and data collection.
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, presidents);
 
-            // Hook everything up by setting the adapter to the ListView.
-            lv.setAdapter(adapter);
 
 
 
