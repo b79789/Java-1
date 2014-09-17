@@ -66,8 +66,10 @@ public class MyActivity extends Activity {
             setList();
             // Grab our ListView by ID and assign it to a variable.
             final ListView lv = (ListView)findViewById(R.id.president_list);
+            // listen for on click event
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
+                //on item click
                 public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                     TextView tv2 = (TextView) findViewById(R.id.spinText);
                     tv2.setText(lv.getItemAtPosition(lv.getSelectedItemPosition()).toString());
@@ -118,11 +120,11 @@ public class MyActivity extends Activity {
         // Grab our ListView by ID and assign it to a variable.
         final ListView lv = (ListView)findViewById(R.id.president_list);
         // Get our data collection from the resource file.
-        String[] presidents = getResources().getStringArray(R.array.teams);
+        String[] myTeams = getResources().getStringArray(R.array.teams);
         // Create a new ArrayAdapter that takes in a context,
         // list item layout, and data collection.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, presidents);
+                android.R.layout.simple_list_item_1, myTeams);
 
         // Hook everything up by setting the adapter to the ListView.
         lv.setAdapter(adapter);
