@@ -8,11 +8,26 @@
     <ListView android:id="@+id/president_list"
         android:layout_width="300dp"
         android:layout_height="fill_parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"
+        android:id="@+id/secondImageView"
+        android:layout_gravity="end"
+        android:contentDescription="@string/myString" />
     <TextView
         android:id="@+id/listViewText"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="right"/>
+        android:layout_height="75dp"
+        android:layout_below="@id/secondImageView"
+        android:layout_alignLeft="@id/secondImageView"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:textColor="#00f0ff"/>
 
 
+</RelativeLayout>
 </LinearLayout>
