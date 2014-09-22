@@ -11,13 +11,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by brianstacks on 9/18/14.
+ * Created by Brian Stacks
+  on 9/18/14
+  for FullSail.edu.
  */
 public class TeamAdapter extends BaseAdapter {
     private static final long ID_CONSTANT = 0x010101010L;
     private Context mContext;
     private ArrayList<TeamCustomClass> mTeams;
-    // We take in a context and list of Employee objects.
+    // We take in a context and list of Team objects.
     // The list is our backing collection and the context is used
     // to create new views in our getView() method.
     public TeamAdapter(Context _context, ArrayList<TeamCustomClass> _teams) {
