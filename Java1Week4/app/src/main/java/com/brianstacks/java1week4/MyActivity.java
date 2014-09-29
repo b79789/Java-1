@@ -1,45 +1,39 @@
 package com.brianstacks.java1week4;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
+import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+
 
 
 public class MyActivity extends Activity {
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
-    String url=null;
-    List<NameValuePair> nvp=null;
+
+    List<MyTask> tasks;
+    Spinner spin;
+    Button myButton;
+    TextView myTextView1;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,41 +41,92 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
 
 
+        spin = (Spinner) findViewById(R.id.mySpinner);
+        myButton = (Button) findViewById(R.id.button1);
+        myTextView1 = (TextView) findViewById(R.id.myTextView1);
+        myTextView1.setMovementMethod(new ScrollingMovementMethod());
+        pb = (ProgressBar) findViewById(R.id.progressBar);
+        pb.setVisibility(View.INVISIBLE);
+        tasks = new ArrayList<>();
+        List myList = new ArrayList();
+        myList.add("Select item");
+        myList.add("MLB");
+        myList.add("NBA");
+        myList.add("NFL");
+        myList.add("NHL");
+        ArrayAdapter dataAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, myList);
+        spin.setAdapter(dataAdapter);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // go code here
+               // check to see which spinner category was selected
+                if (String.valueOf(spin.getSelectedItem()) == "MLB"){
+                    View inflatedView = getLayoutInflater().inflate(R.layout.activitytwo, null);
+                    TextView actTwoLV = (TextView) inflatedView.findViewById(R.id.leagueListView);
+                   String mlbApi = "http://api.espn.com/v1/sports/baseball/mlb/teams?apikey=73w2tfvcdfvt6m7m86x4mdvt";
+                    //Toast.makeText(MyActivity.this,"MLB was clicked " ,Toast.LENGTH_SHORT).show();
+                    //+ String.valueOf(spin.getSelectedItem())
+                }else if (String.valueOf(spin.getSelectedItem()) == "NBA"){
+                    String nbaApi = "http://api.espn.com/v1/sports/basketball/nba/teams?apikey=73w2tfvcdfvt6m7m86x4mdvt";
+                    Toast.makeText(MyActivity.this,"NBA was clicked " ,Toast.LENGTH_SHORT).show();
+                }else if (String.valueOf(spin.getSelectedItem()) == "NFL"){
+                    String nflApi = "http://api.espn.com/v1/sports/football/nfl/teams?apikey=73w2tfvcdfvt6m7m86x4mdvt";
+                    Toast.makeText(MyActivity.this,"NFL was clicked " ,Toast.LENGTH_SHORT).show();
+                }else if (String.valueOf(spin.getSelectedItem()) == "NHL"){
+                    String nhlApi = "http://api.espn.com/v1/sports/hockey/nhl/teams?apikey=73w2tfvcdfvt6m7m86x4mdvt";
+                    Toast.makeText(MyActivity.this,"NHL was clicked " ,Toast.LENGTH_SHORT).show();
+                }else {
+                    //do nothing
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // nothing code here
+            }
+
+        });
+        myButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spin = (Spinner) findViewById(R.id.mySpinner);
+                myButton = (Button) findViewById(R.id.button1);
+
+                myButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MyTask theTask = new MyTask();
+                        theTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"Param1","Param2","Param3");
+                            //updateDisplay(String.valueOf(spin.getSelectedItem().toString()));
+
+                    }
+
+
+                });
+
+
+            }
+        });
+
     }
 
-    public void onClickBtn(View v)
-    {
-        // Get the connectivity manager as a system service.
-        // The Context class provides several string constants for
-        // accessing various system services.
-        ConnectivityManager mgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        // Getting our active network information.
-        NetworkInfo netInfo = mgr.getActiveNetworkInfo();
-        // We have a network connection, but not necessarily a data connection.
-        if(netInfo != null) {
-            if(netInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                // We're on 3G/4G data
-                Log.v("Data type:","3G/4G");
-                Toast.makeText(this, "Data type:3G/4G", Toast.LENGTH_LONG).show();
-            } else if(netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                // We're on WiFi data
-                Log.v("Data type:","WiFi");
-                Toast.makeText(this, "Data type:WiFi", Toast.LENGTH_LONG).show();
-            }
-            if(netInfo.isConnected()) {
-                // We have a valid data connection
-                Log.v("Data type valid:"," Yes");
-                Toast.makeText(this, "Data type valid: Yes", Toast.LENGTH_LONG).show();
-            }
-        }
+
+
+    public void changelayout(View view){
+        setContentView(R.layout.activitytwo);
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.my, menu);
         return true;
+    }
+
+    public void updateDisplay(String message){
+
+        myTextView1.append(message+"\n");
+
     }
 
     @Override
@@ -93,25 +138,122 @@ public class MyActivity extends Activity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
         
     }
-    protected void updateDisplay(String message){
-        Toast.makeText(this, "Display updated", Toast.LENGTH_LONG).show();
-    }
 
-    private class myTask extends AsyncTask<String,String,String>{
+
+    private class MyTask extends AsyncTask<String,String,String>{
 
         @Override
         protected void onPreExecute() {
+            updateDisplay("Starting Network Detection");
+            if (tasks.size() == 0){
+                pb.setVisibility(View.VISIBLE);
+            }tasks.add(this);
+
 
         }
 
         @Override
         protected String doInBackground(String... params) {
-            return null;
+
+            // The URL string that points to our web resource.
+            String urlString = "http://api.espn.com/v1/sports/basketball/nba/teams?apikey=73w2tfvcdfvt6m7m86x4mdvt";
+// Creating the URL object that points to our web resource.
+            URL url = null;
+            try {
+                url = new URL(urlString);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+// Establish a connection to the resource at the URL.
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+// Setting connection properties.
+            try {
+                connection.setRequestMethod("GET");
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            }
+            connection.setConnectTimeout(10000); // 10 seconds
+            connection.setReadTimeout(10000); // 10 seconds
+// Refreshing the connection.
+            try {
+                connection.connect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+// Optionally check the status code. Status 200 means everything went OK.
+            int statusCode = 0;
+            try {
+                statusCode = connection.getResponseCode();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+// Getting the InputStream with the data from our resource.
+            InputStream stream = null;
+            try {
+                stream = connection.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+// Reading data from the InputStream using the Apache library.
+            String resourceData = null;
+            try {
+                resourceData = IOUtils.toString(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+// Cleaning up our connection resources.
+            assert stream != null;
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connection.disconnect();
+// The resourceData string should now have our data.
+            Log.v("resourceData:", resourceData);
+
+            for (int i = 0; i < params.length; i++) {
+                publishProgress("Working with" + params[i]);
+
+                try {
+                    {
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return resourceData;
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String result) {
+
+            updateDisplay(result);
+            tasks.remove(this);
+            if (tasks.size() == 0){
+                pb.setVisibility(View.INVISIBLE);
+            }tasks.add(this);
+
 
         }
+
+        @Override
+        protected  void  onProgressUpdate(String... values){
+
+            updateDisplay(values[0]);
+        }
+
+
+
     }
+
+
 }

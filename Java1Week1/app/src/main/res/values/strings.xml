@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Java1Week1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="editText_hint">Enter Text</string>
+    <string name="buttonText">Enter</string>
+    <string name="Add">Add</string>
+    <string name="Show">Show How Many</string>
+    <string name="Avg">Average Length:</string>
+    <string name="NumEntry">Number of Entries:</string>
+    <string name="Show2">Show Average Length</string>
+    <string name="ShowCollection">Show Collection</string>
+
+</resources>

@@ -5,11 +5,7 @@
 package com.brianstacks.java1week2;
 
 import android.app.Activity;
-
-import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,50 +18,53 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
+
 
 
 public class MyActivity extends Activity {
-    // variables for key strings
-    static private String teamname;
-    static private String img;
-    // ArrayList to hold items from team
-    private ArrayList<TeamCustomClass> mTeams;
-    Spinner sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        // Grab our Spinner by ID and assign it to a variable.
+        final Spinner sp = (Spinner) findViewById(R.id.mySpinner);
+        final ImageView iv2 = (ImageView) findViewById(R.id.firstImageView);
 
-        ArrayList<HashMap<String, Object>> newTeam = new ArrayList<HashMap<String, Object>>();
+
+        // Arraylist that contains my hashmap
+        final ArrayList<HashMap<String, Object>> newTeam = new ArrayList<HashMap<String, Object>>();
+        // stringArray of the 20 teams
         String teamList[] = getResources().getStringArray(R.array.teams);
-        int[] myImageList = new int[]{R.drawable.bc, R.drawable.canes, R.drawable.cards, R.drawable.cavs, R.drawable.clemson,R.drawable.duke,R.drawable.fsu,R.drawable.gators,R.drawable.gt,R.drawable.irish,R.drawable.ken,R.drawable.mich,R.drawable.ncstate,R.drawable.pitt,R.drawable.syracuse,R.drawable.terps,R.drawable.uconn,R.drawable.unc,R.drawable.vt,R.drawable.wake};
-        HashMap<String,Object> myHash = new HashMap<String,Object>();
-        //myImageView.setImageResource(myImageList[i]);
+        // int array of my image id's
+        int[] myImageList = new int[]{R.drawable.bc, R.drawable.canes, R.drawable.cards, R.drawable.cavs, R.drawable.clemson,R.drawable.duke,R.drawable.fsu,R.drawable.gators,R.drawable.gt,R.drawable.irish,
+                R.drawable.ken,R.drawable.mich,R.drawable.ncstate,R.drawable.pitt,R.drawable.syracuse,R.drawable.terps,R.drawable.uconn,R.drawable.unc,R.drawable.vt,R.drawable.wake};
+
         for (int k =0; k< teamList.length;k++){
-            myHash.put(teamname,teamList[k]);
-            myHash.put(img,myImageList[k]);
-            newTeam.add(myHash);
+            // create hashMap and add the arrays to the map
+            HashMap<String,Object> myHash = new HashMap<String,Object>();
+            HashMap<String, Object> teamNameString = new HashMap<String, Object>();
+            teamNameString.put("", teamList[k]);
+            myHash.put("img",myImageList[k]);
+            newTeam.add(teamNameString);
         }
-        Log.v("My TEAMS:",newTeam.toString());
+
+        // Create a new ArrayAdapter that takes in a context,
+        // list item layout, and data collection.
+        ArrayAdapter<HashMap<String, Object>> arrayAdapter = new ArrayAdapter<HashMap<String, Object>>(
+                this,
+                android.R.layout.simple_spinner_item,
+                newTeam );
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // get orientation
         int rotation = getWindowManager().getDefaultDisplay().getRotation();
         // set activity on view rotation
         if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
-            setSpinner();
-            // Grab our Spinner by ID and assign it to a variable.
-            sp = (Spinner) findViewById(R.id.mySpinner);
-            // set listener for when item is selected
-            //sp.setAdapter(new TeamAdapter(this,mTeams));
-
+            sp.setAdapter(arrayAdapter);
+            Log.v("My TEAMS:",newTeam.toString());
             sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
@@ -77,7 +76,7 @@ public class MyActivity extends Activity {
                     tv.setBackgroundColor(Color.BLACK);
                     tv.setTextColor(Color.WHITE);
                     tv.setText(sp.getItemAtPosition(sp.getSelectedItemPosition()).toString());
-                    ImageView iv = (ImageView) findViewById(R.id.firstImageView);
+                    //iv2.findViewById(newTeam.indexOf(1));
 
 
                 }
@@ -101,7 +100,7 @@ public class MyActivity extends Activity {
                     tv2.setBackgroundColor(Color.BLACK);
                     tv2.setTextColor(Color.WHITE);
                     tv2.setText(lv.getItemAtPosition(myItemInt).toString());
-                    ImageView iv = (ImageView) findViewById(R.id.secondImageView);
+                    //ImageView iv = (ImageView) findViewById(R.id.secondImageView);
                 }
 
             });
@@ -110,40 +109,8 @@ public class MyActivity extends Activity {
 
     }
 
-    public void setSpinner(){
 
 
-        // Grab our Spinner by ID and assign it to a variable.
-        Spinner sp = (Spinner) findViewById(R.id.mySpinner);
-        // Arraylist that contains my hashmap
-        ArrayList<HashMap<String, Object>> newTeam = new ArrayList<HashMap<String, Object>>();
-        // stringArray of the 20 teams
-        String teamList[] = getResources().getStringArray(R.array.teams);
-        // int array of my image id's
-        int[] myImageList = new int[]{R.drawable.bc, R.drawable.canes, R.drawable.cards, R.drawable.cavs, R.drawable.clemson,R.drawable.duke,R.drawable.fsu,R.drawable.gators,R.drawable.gt,R.drawable.irish,
-                R.drawable.ken,R.drawable.mich,R.drawable.ncstate,R.drawable.pitt,R.drawable.syracuse,R.drawable.terps,R.drawable.uconn,R.drawable.unc,R.drawable.vt,R.drawable.wake};
-        // create hashMap and add the arrays to the map
-        HashMap<String,Object> myHash = new HashMap<String,Object>();
-        for (int k =0; k< teamList.length;k++){
-            myHash.put(teamname,teamList[k]);
-            myHash.put(img,myImageList[k]);
-        }
-        newTeam.add(myHash);
-        // Create a new ArrayAdapter that takes in a context,
-        // list item layout, and data collection.
-        ArrayAdapter<HashMap<String, Object>> arrayAdapter = new ArrayAdapter<HashMap<String, Object>>(
-                this,
-                android.R.layout.simple_spinner_item,
-                newTeam );
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        /*
-        ArrayAdapter<CharSequence> myAdapter = ArrayAdapter.createFromResource(this,
-                R.array.teams, android.R.layout.simple_spinner_item);
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        */
-        sp.setAdapter(arrayAdapter);
-
-    }
 
     public void setList(){
 
