@@ -1,3 +1,7 @@
+/*Brian Stacks
+ 9-29-2014
+ Java-1 Mr.Story
+*/
 package com.brianstacks.java1week1;
 
 import android.app.Activity;
@@ -5,14 +9,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,27 +27,21 @@ public class MyActivity extends Activity {
     public static final ArrayList<String> stringList = new ArrayList<String>();
     public static final List<String> newList = new ArrayList<String>(new HashSet<String>(stringList));
     EditText enterText;
-    Button button1;
-    Button button2;
-    Button button3;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        enterText = (EditText) findViewById(R.id.enterText);
-        button1 = (Button) findViewById(R.id.myButton);
-        button2 = (Button) findViewById(R.id.button);
-        button3 = (Button) findViewById(R.id.button2);
+
 
     }
 
     public void onClick1(View view) {
 
-        EditText myEditText = (EditText) findViewById(R.id.enterText);
+        enterText = (EditText) findViewById(R.id.enterText);
         //takes input and saves as string
-        final String my_message = myEditText.getText().toString();
+        final String my_message = enterText.getText().toString();
         if (my_message.matches("")) {
             Toast.makeText(this, "You must enter some text", Toast.LENGTH_SHORT).show();
         } else if(newList.contains(my_message)) {
@@ -96,17 +94,34 @@ public class MyActivity extends Activity {
     }
 
     public void onClick4(View view){
-        // create alert  to show value
-        new AlertDialog.Builder(this)
-                .setTitle("The elements!")
-                .setMessage(newList.toString())
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View convertView = inflater.inflate(R.layout.customxml, null);
+        alertDialog.setView(convertView);
+        alertDialog.setTitle("List");
+        ListView lv = (ListView) convertView.findViewById(R.id.listView1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,newList);
+        lv.setAdapter(adapter);
+        alertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.setNegativeButton("Remove ", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //User clicked remove so remove it
+                if (newList.size() == 0) {
+                    //do something here
+                    reload();
+
+                } else {
+                    newList.remove((newList.size() - 1));
+                }
+            }
+        });
+        alertDialog.show();
+
     }
 
 
@@ -123,10 +138,7 @@ public class MyActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     // custom function to reload the view

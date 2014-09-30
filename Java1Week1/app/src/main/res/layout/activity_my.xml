@@ -13,34 +13,43 @@
         android:id="@+id/enterText"
         android:hint="@string/editText_hint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/myButton"
+        android:background="@android:color/holo_green_dark"
         android:text="@string/Add"
-        android:onClick="onClick1"/>
+        android:onClick="onClick1"
+        android:layout_marginBottom="5dp"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/Show"
         android:gravity="center"
+        android:background="@android:color/background_light"
         android:id="@+id/button"
+        android:layout_marginBottom="5dp"
         android:onClick="onClick2"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/Show2"
+        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:id="@+id/ShowButton2"
+        android:layout_marginBottom="5dp"
         android:onClick="onClick3"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_dark"
         android:text="@string/ShowCollection"
         android:gravity="center"
         android:id="@+id/button2"
-        android:onClick="onClick4"/>
+        android:onClick="onClick4"
+        android:layout_marginBottom="5dp"/>
 
 </LinearLayout>
