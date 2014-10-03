@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Pruebas Justo</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="editText_hint">Introduzca texto</string>
+    <string name="buttonText">Ingrese</string>
+    <string name="Add">Añadir</string>
+    <string name="Show">Mostrar cuántos</string>
+    <string name="Avg">Duración media:</string>
+    <string name="NumEntry">Número de entradas:</string>
+    <string name="Show2">Mostrar Duración media</string>
+    <string name="ShowCollection">Mostrar Colección</string>
+    <string name="Collection">Colección:</string>
+    <string name="ShowCollectionAvg">Colección Promedio:</string>
+
+</resources>

@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,23 +17,40 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 
-public class MyActivity extends Activity {
+public class ItWorked extends Activity {
     // create array of strings
     public static final ArrayList<String> stringList = new ArrayList<String>();
     public static final List<String> newList = new ArrayList<String>(new HashSet<String>(stringList));
     EditText enterText;
+    TextView collectionText;
+    TextView collectionAverageText;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        collectionText = (TextView) findViewById(R.id.collection_text);
+        collectionAverageText = (TextView) findViewById(R.id.average_text);
+        // removes object characters like [] and ,'s and gives me just letters inputted
+        StringBuilder builder = new StringBuilder();
+        for (String value : newList) {
+            builder.append(value);
+        }
+        //put all builder object to string
+        String allCharactersInArray = builder.toString();
+        // do the math for average here
+        float characterCount = allCharactersInArray.length();
+        float newAverageLength = characterCount/newList.size();
+        collectionText.setText(newList.toString());
+        collectionAverageText.setText(String.valueOf(newAverageLength));
 
 
     }
