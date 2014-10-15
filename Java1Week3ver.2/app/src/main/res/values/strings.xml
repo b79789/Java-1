@@ -2,7 +2,51 @@
 <resources>
 
     <string name="app_name">Java1Week3ver.2</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="image_desc">Team Image</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="teams">
+        <item>Boston College</item>
+        <item>Miami</item>
+        <item>Louisville</item>
+        <item>Virginia</item>
+        <item>Clemson</item>
+        <item>Duke</item>
+        <item>Florida State</item>
+        <item>Florida</item>
+        <item>Georgia Tech</item>
+        <item>Notre Dame</item>
+        <item>Kentucky</item>
+        <item>Michigan</item>
+        <item>NC State</item>
+        <item>Pittsburgh</item>
+        <item>Maryland</item>
+        <item>Connecticut</item>
+        <item>North Carolina</item>
+        <item>Syracuse</item>
+        <item>Virginia Tech</item>
+        <item>Wake Forest</item>
+    </string-array>
+    <string-array name="nicks">
+        <item>Eagles</item>
+        <item>Hurricanes</item>
+        <item>Cardinals</item>
+        <item>Cavaliers</item>
+        <item>Tigers</item>
+        <item>Devils</item>
+        <item>Seminoles</item>
+        <item>Gators</item>
+        <item>Yellow Jackets</item>
+        <item>Fighting Irish</item>
+        <item>Wildcats</item>
+        <item>Wolverines</item>
+        <item>Wolfpack</item>
+        <item>Panthers</item>
+        <item>Terrapins</item>
+        <item>Huskies</item>
+        <item>Tar Heels</item>
+        <item>Orange</item>
+        <item>Hokies</item>
+        <item>Demon Deacons</item>
+    </string-array>
 </resources>

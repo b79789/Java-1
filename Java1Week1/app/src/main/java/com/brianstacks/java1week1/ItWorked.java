@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,11 +48,18 @@ public class ItWorked extends Activity {
         //put all builder object to string
         String allCharactersInArray = builder.toString();
         // do the math for average here
+        String arrayString = newList.toString();
+        String newArrayListString = arrayString.replace("["," ").replace("]"," ");
         float characterCount = allCharactersInArray.length();
         float newAverageLength = characterCount/newList.size();
-        collectionText.setText(newList.toString());
-        collectionAverageText.setText(String.valueOf(newAverageLength));
+        collectionText.setText(newArrayListString);
+        Log.v("Message^^^^^^^",String.valueOf(newAverageLength));
+        if (String.valueOf(newAverageLength) != "NaN") {
+            collectionAverageText.setText(String.valueOf(newAverageLength));
 
+        }else{
+            collectionAverageText.setText("0");
+        }
 
     }
 
@@ -113,8 +121,7 @@ public class ItWorked extends Activity {
 
     public void onClick4(View view){
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View convertView = inflater.inflate(R.layout.customxml, null);
+        View convertView = LayoutInflater.from(this).inflate(R.layout.customxml,null);
         alertDialog.setView(convertView);
         alertDialog.setTitle("List");
         ListView lv = (ListView) convertView.findViewById(R.id.listView1);
@@ -143,6 +150,22 @@ public class ItWorked extends Activity {
 
                 } else {
                     newList.remove((newList.size() - 1));
+                    Toast.makeText(getApplicationContext(), "Item Removed",
+                            Toast.LENGTH_SHORT).show();
+                    // removes object characters like [] and ,'s and gives me just letters inputted
+                    StringBuilder builder = new StringBuilder();
+                    for (String value : newList) {
+                        builder.append(value);
+                    }
+                    //put all builder object to string
+                    String allCharactersInArray = builder.toString();
+                    // do the math for average here
+                    String arrayString = newList.toString();
+                    String newArrayListString = arrayString.replace("["," ").replace("]"," ");
+                    float characterCount = allCharactersInArray.length();
+                    float newAverageLength = characterCount/newList.size();
+                    collectionText.setText(newArrayListString);
+                    collectionAverageText.setText(String.valueOf(newAverageLength));
                 }
             }
         });
