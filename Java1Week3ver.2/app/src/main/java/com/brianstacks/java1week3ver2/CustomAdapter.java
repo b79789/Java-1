@@ -16,6 +16,9 @@ import java.util.ArrayList;
  * for FullSail.edu.
  */
 public class CustomAdapter extends BaseAdapter {
+    private int[] myImageList = new int[]{R.drawable.bc, R.drawable.canes, R.drawable.cards, R.drawable.cavs, R.drawable.clemson,R.drawable.duke,R.drawable.fsu,R.drawable.gators,R.drawable.gt,R.drawable.irish,
+            R.drawable.ken,R.drawable.mich,R.drawable.ncstate,R.drawable.pitt,R.drawable.terps,R.drawable.uconn,R.drawable.unc,R.drawable.syracuse,R.drawable.vt,R.drawable.wake};
+
     private static final long ID_CONSTANT = 0x010101010L;
     private Context mContext;
     private ArrayList<Team> mTeam;
@@ -46,17 +49,18 @@ public class CustomAdapter extends BaseAdapter {
         // If we don't have a recycled view, create a new view.
         if(_convertView == null) {
             // Creating the new view.
-            _convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_my, _parent, false);
+            _convertView = LayoutInflater.from(mContext).inflate(R.layout.customlayout, _parent, false);
         }
         // Get the object from the collection in an index-safe manner.
         Team team = getItem(_position);
         // Use the object from the collection to fill out our view.
+        ImageView iv =(ImageView)_convertView.findViewById(R.id.teamImage);
+        iv.setImageResource(myImageList[_position]);
         TextView tv = (TextView)_convertView.findViewById(R.id.teamName);
         tv.setText(team.getName());
         tv = (TextView)_convertView.findViewById(R.id.teamNick);
         tv.setText(team.getNick());
-        //ImageView iv =(ImageView)_convertView.findViewById(R.id.teamImage);
-       // iv.setImageDrawable(mContext.getString(team.getImages()));
+
         // Returning our filled out view.
         return _convertView;
     }

@@ -4,6 +4,9 @@
     <string name="app_name">Java1Week3ver.2</string>
     <string name="image_desc">Team Image</string>
     <string name="action_settings">Settings</string>
+    <string name="static1">Select your favorite college team!</string>
+    <string name="teamDetailsText">Team Information:</string>
+
 
     <string-array name="teams">
         <item>Boston College</item>
