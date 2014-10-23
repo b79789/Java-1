@@ -34,12 +34,11 @@ public class HttpManager {
         e.printStackTrace();
             return null;
         }finally {
-            if (reader!=null){
-                try{
+            if (reader!=null) {
+                try {
                     reader.close();
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
                 }
             }
         }

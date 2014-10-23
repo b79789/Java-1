@@ -23,15 +23,12 @@
         android:layout_height="wrap_content"
         android:onClick="myClick" />
     <TextView
-        android:id="@+id/myText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/image_view"
-        android:contentDescription="@string/hint"
+        android:id="@+id/infoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+    <ListView android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

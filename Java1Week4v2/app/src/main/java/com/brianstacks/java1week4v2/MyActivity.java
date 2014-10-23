@@ -1,28 +1,29 @@
 package com.brianstacks.java1week4v2;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends ListActivity {
     // create some references for ui elements
     EditText urlText;
-    TextView textView;
     ProgressBar pb;
     // create a reference to the list's needed for data
     List<MyTask> tasks;
@@ -35,14 +36,11 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
         // get my ui elements by id
         urlText = (EditText) findViewById(R.id.myUrl);
-        textView = (TextView) findViewById(R.id.myText);
         pb = (ProgressBar) findViewById(R.id.progressBar);
         // set the progress bar to invisible
         pb.setVisibility(View.INVISIBLE);
         //initiate my tasks
         tasks = new ArrayList<>();
-        // make text view scrollable
-        textView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override
@@ -74,11 +72,29 @@ public class MyActivity extends Activity {
     }
     // method to update th ui
     protected  void updateDisplay(){
-        if (placeList != null){
-            for (Places place: placeList){
-                textView.append(place.getName());
+
+        final PlacesAdapter adapter = new PlacesAdapter(this,R.layout.item_place,placeList);
+        ListView lv = getListView();
+
+        setListAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> arg0,
+                                    View arg1, int position, long arg3)
+            {
+                Places place = adapter.getItem(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(arg1.getContext());
+                builder.setTitle("Details");
+                builder.setMessage(place.getName() + "\n" + place.getFormatted_address() + "\n" + place.getTypes() + "\n");
+                builder.setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // DO SOMETHING
+                    }});
+                AlertDialog alert = builder.create();
+                alert.show();
+
             }
-        }
+        });
 
 
     }
@@ -114,22 +130,23 @@ public class MyActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-
-            placeList = JSONParser.parseFeed(result);
-            Log.v("message:", String.valueOf(placeList));
-            updateDisplay();
-
             tasks.remove(this);
             if (tasks.size() == 0){
                 // remove progress bar visibility from ui
                 pb.setVisibility(View.INVISIBLE);
             }
+            if (result == null){
+                Toast.makeText(MyActivity.this,"Can't connect to API",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            placeList = JSONParser.parseFeed(result);
+            updateDisplay();
 
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-            //updateDisplay(values[0]);
+
         }
     }
 }

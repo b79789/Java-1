@@ -1,6 +1,6 @@
 package com.brianstacks.java1week4v2;
 
-import android.util.Log;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,18 +17,19 @@ public class JSONParser {
 
     public static List<Places> parseFeed(String content) {
 
+
         JSONObject myObj;
         try {
             myObj = new JSONObject(content);
             JSONArray result = myObj.getJSONArray("results");
             List<Places> placeList = new ArrayList<>();
 
-            for (int i = 0; i <= result.length(); i++) {
+            for (int i = 0; i < result.length(); i++) {
                 JSONObject obj = result.getJSONObject(i);
                 Places place = new Places();
                 place.setName(obj.getString("name"));
-               // place.setFormatted_address(obj.getString("formatted_address"));
-               // place.setTypes(obj.getString("types"));
+                place.setFormatted_address(obj.getString("formatted_address"));
+                place.setTypes(obj.getString("types"));
                 //place.setPhotos(obj.getString("photos"));
 
                 placeList.add(place);
