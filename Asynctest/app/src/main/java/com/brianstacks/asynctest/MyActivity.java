@@ -1,4 +1,4 @@
-package com.brianstacks.java1week4v2;
+package com.brianstacks.asynctest;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,37 +7,49 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 public class MyActivity extends Activity {
-    EditText urlText;
     TextView textView;
     ProgressBar pb;
     List<MyTask> tasks;
-    List<Places>  placeList;
-
+    Gson gson = new Gson();
+    List<Teams> teamList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        urlText = (EditText) findViewById(R.id.myUrl);
         textView = (TextView) findViewById(R.id.myText);
         pb = (ProgressBar) findViewById(R.id.progressBar);
         pb.setVisibility(View.INVISIBLE);
         tasks = new ArrayList<>();
         textView.setMovementMethod(new ScrollingMovementMethod());
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,25 +66,8 @@ public class MyActivity extends Activity {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
-
-    public void myClick(View view){
-        String myString = urlText.getText().toString();
-        String encodedString = myString.replace(" ","+");
-        textView.append(encodedString);
-        if (isOnline()){
-            requestData("https://maps.googleapis.com/maps/api/place/textsearch/json?query="+encodedString+"&key=AIzaSyB9iOw6wF4FwbOdUTZYiU_MxsbfWM5iMOI");
-        }else Toast.makeText(this, "Network isn't available", Toast.LENGTH_SHORT).show();
-
-    }
-
-    protected  void updateDisplay(){
-        if (placeList != null){
-            for (Places place: placeList){
-                textView.append(place.getName());
-            }
-        }
-
-
+    protected  void updateDisplay(String message){
+        textView.append(message);
     }
 
 
@@ -80,6 +75,13 @@ public class MyActivity extends Activity {
         ConnectivityManager cm =(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo  netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+
+    }
+
+    public void myClick(View view){
+        if (isOnline()){
+            requestData("https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Sydney&key=AIzaSyB9iOw6wF4FwbOdUTZYiU_MxsbfWM5iMOI");
+        }else Toast.makeText(this, "Network isn't available", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -93,11 +95,11 @@ public class MyActivity extends Activity {
         @Override
         protected void onPreExecute() {
 
-            //updateDisplay("Starting Task");
+           updateDisplay("Starting Task");
 
             if (tasks.size() == 0){
 
-                pb.setVisibility(View.VISIBLE);
+            pb.setVisibility(View.VISIBLE);
             }
             tasks.add(this);
         }
@@ -109,10 +111,18 @@ public class MyActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-            placeList = JSONParser.parseFeed(result);
 
-            Log.v("Place List",placeList.get(2).getName());
-            updateDisplay();
+            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+
+            JsonElement getInfo =jsonObject.get("results");
+            //String dataTitle = getInfo.toString();
+
+
+            updateDisplay(result);
+            Log.v("Results", getInfo.toString());
+
+
+
             tasks.remove(this);
             if (tasks.size() == 0){
 
@@ -123,7 +133,9 @@ public class MyActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            //updateDisplay(values[0]);
+            updateDisplay(values[0]);
         }
     }
+
+
 }

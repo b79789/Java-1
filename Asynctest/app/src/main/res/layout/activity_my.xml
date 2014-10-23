@@ -9,34 +9,22 @@
     android:orientation="vertical"
     tools:context=".MyActivity">
 
-
-    <EditText
-        android:id="@+id/myUrl"
-        android:inputType="textUri"
-        android:hint="@string/hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/myBUtton"
-        android:text="@string/enter"
+        android:id="@+id/myButton"
+        android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="myClick" />
+        android:onClick="myClick"/>
     <TextView
         android:id="@+id/myText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/image_view"
-        android:contentDescription="@string/hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scrollbars = "vertical"
+        android:textIsSelectable="true"/>
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_gravity="center_horizontal" />
-
+        android:id="@+id/progressBar" />
 
 </LinearLayout>
