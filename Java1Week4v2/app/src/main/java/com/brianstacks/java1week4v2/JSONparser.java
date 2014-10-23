@@ -1,10 +1,11 @@
 package com.brianstacks.java1week4v2;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,30 +15,26 @@ import java.util.List;
  */
 public class JSONParser {
 
-    public static List<Places> parseFeed(String content){
+    public static List<Places> parseFeed(String content) {
+
+        JSONObject myObj;
         try {
-            JSONObject myObj = new JSONObject(content);
-            Iterator x = myObj.keys();
-            JSONArray jsonArray = new JSONArray();
+            myObj = new JSONObject(content);
+            JSONArray result = myObj.getJSONArray("results");
+            List<Places> placeList = new ArrayList<>();
 
-            while (x.hasNext()){
-                String key = (String) x.next();
-                jsonArray.put(myObj.get(key));
-            }
-            List<Places> placeList =new ArrayList<>();
-
-            for (int i = 0; i < jsonArray.length();i++){
-
-                JSONObject obj = jsonArray.getJSONObject(i);
+            for (int i = 0; i <= result.length(); i++) {
+                JSONObject obj = result.getJSONObject(i);
                 Places place = new Places();
-
-                Places.setName(obj.getString("name"));
-                Places.setFormatted_address(obj.getString("formatted_address"));
-                Places.setTypes(obj.getString("types"));
-                Places.setPhotos(obj.getString("photos"));
+                place.setName(obj.getString("name"));
+                place.setFormatted_address(obj.getString("formatted_address"));
+                place.setTypes(obj.getString("types"));
+                place.setPhotos(obj.getString("photos"));
 
                 placeList.add(place);
+
             }
+
             return placeList;
         } catch (JSONException e) {
             e.printStackTrace();

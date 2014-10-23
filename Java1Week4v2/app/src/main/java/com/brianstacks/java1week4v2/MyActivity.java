@@ -85,7 +85,8 @@ public class MyActivity extends Activity {
 
     private void requestData(String uri) {
         MyTask task = new MyTask();
-        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
+        //task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
+        task.execute(uri);
     }
 
     private class MyTask extends AsyncTask<String ,String ,String>{
@@ -110,8 +111,6 @@ public class MyActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             placeList = JSONParser.parseFeed(result);
-
-            Log.v("Place List",placeList.get(2).getName());
             updateDisplay();
             tasks.remove(this);
             if (tasks.size() == 0){

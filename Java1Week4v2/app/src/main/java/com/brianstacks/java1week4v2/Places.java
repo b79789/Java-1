@@ -7,64 +7,49 @@ package com.brianstacks.java1week4v2;
  */
 public class Places {
 
-    private String name;
-    private String types;
-    private String formatted_address;
-    private String photos;
+    private String pName;
+    private String pTypes;
+    private String pFormatted_address;
+    private String pPhotos;
 
 
     public  Places(){
-        name ="";
-        types ="";
-        formatted_address = "";
-        photos="";
+        pName ="";
+        pTypes ="";
+        pFormatted_address = "";
+        pPhotos="";
     }
 
-    public Places(String _name, String _types, String _formatted_address, String _photos){
-        name = _name;
-        types =_types;
-        formatted_address = _formatted_address;
-        photos = _photos;
+    public Places (String _name, String _types, String _formatted_address, String _photos){
+        pName = _name;
+        pTypes =_types;
+        pFormatted_address = _formatted_address;
+        pPhotos = _photos;
     }
     public String getName() {
-        return name;
+        return pName;
     }
-    public String setName() {
-        return name;
+    public void setName(String name) {
+        pName = name;
     }
     public String getTypes() {
-        return types;
+        return pTypes;
     }
-    public String setTypes() {
-        return types;
+    public void  setTypes(String types) {
+        pTypes= types;
     }
     public String getFormatted_address() {
-        return formatted_address;
+        return pFormatted_address;
     }
-    public String setFormatted_address() {
-        return formatted_address;
+    public void setFormatted_address(String formatted_address) {
+        pFormatted_address=formatted_address;
     }
     public String getPhotos() {
-        return photos;
+        return pPhotos;
     }
-    public String setPhotos() {
-        return photos;
+    public void setPhotos(String photos) {
+        pPhotos= photos;
     }
 
-    public static void getName(String name) {
-    }
-    public static void setName(String name) {
-    }
-    public static void getTypes(String types) {
-    }
-    public static void setTypes(String types) {
-    }
-    public static void getFormatted_address(String formatted_address) {
-    }
-    public static void setFormatted_address(String formatted_address) {
-    }
-    public static void getPhotos(String photos) {
-    }
-    public static void setPhotos(String photos) {
-    }
+
 }
