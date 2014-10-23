@@ -27,14 +27,12 @@ public class JSONParser {
                 JSONObject obj = result.getJSONObject(i);
                 Places place = new Places();
                 place.setName(obj.getString("name"));
-                place.setFormatted_address(obj.getString("formatted_address"));
-                place.setTypes(obj.getString("types"));
-                place.setPhotos(obj.getString("photos"));
+               // place.setFormatted_address(obj.getString("formatted_address"));
+               // place.setTypes(obj.getString("types"));
+                //place.setPhotos(obj.getString("photos"));
 
                 placeList.add(place);
-
             }
-
             return placeList;
         } catch (JSONException e) {
             e.printStackTrace();
